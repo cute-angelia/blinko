@@ -107,9 +107,7 @@ export class EditorStore {
   insertMarkdown = (text) => {
     // this.vditor?.insertValue(text)
     // this.onChange?.(this.vditor?.getValue() ?? '')
-    // this.focus()
-    // 确保编辑器获得焦点
-    this.vditor?.focus();
+    this.focus()
 
     // 插入内容到光标位置
     this.vditor?.insertValue(text);
@@ -119,9 +117,9 @@ export class EditorStore {
   }
 
   replaceMarkdown = (text) => {
+    this.focus()
     this.vditor?.setValue(text)
     this.onChange?.(this.vditor?.getValue() ?? '')
-    this.focus()
   }
 
   getEditorRange = (vditor: IVditor) => {
@@ -146,27 +144,37 @@ export class EditorStore {
 
   focus = () => {
     this.vditor?.focus();
-    const editorElement = getEditorElements(this.viewMode, this.vditor!)
-    try {
-      const range = document.createRange()
-      const selection = window.getSelection()
-      const walker = document.createTreeWalker(
-        editorElement!,
-        NodeFilter.SHOW_TEXT,
-        null
-      )
-      let lastNode: any = null
-      while (walker.nextNode()) {
-        lastNode = walker.currentNode
+
+    // 如果需要在特定位置设置光标，可以使用以下方式
+    const editor = this.vditor;
+    if (editor) {
+      // 获取编辑器当前内容
+      const content = editor.getValue();
+
+      // 如果有内容，将光标定位到末尾
+      if (content.length > 0) {
+        // 使用 Vditor 的 API 设置光标位置
+        const element = getEditorElements(this.viewMode, editor);
+        if (element) {
+          // 简单的光标定位到末尾逻辑
+          const range = document.createRange();
+          const selection = window.getSelection();
+
+          // 找到编辑器内的最后一个可编辑元素
+          const lastChild = element.lastChild;
+          if (lastChild && lastChild.nodeType === Node.TEXT_NODE) {
+            range.setStart(lastChild, lastChild.length);
+            range.setEnd(lastChild, lastChild.length);
+          } else {
+            // 如果没有文本节点，定位到编辑器本身
+            range.selectNodeContents(element);
+            range.collapse(false); // false 表示移动到末尾
+          }
+
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+        }
       }
-      if (lastNode) {
-        range.setStart(lastNode, lastNode?.length)
-        range.setEnd(lastNode, lastNode?.length)
-        selection?.removeAllRanges()
-        selection?.addRange(range)
-        editorElement!.focus()
-      }
-    } catch (error) {
     }
   }
 
