@@ -105,9 +105,17 @@ export class EditorStore {
   }
 
   insertMarkdown = (text) => {
-    this.vditor?.insertValue(text)
-    this.onChange?.(this.vditor?.getValue() ?? '')
-    this.focus()
+    // this.vditor?.insertValue(text)
+    // this.onChange?.(this.vditor?.getValue() ?? '')
+    // this.focus()
+    // 确保编辑器获得焦点
+    this.vditor?.focus();
+
+    // 插入内容到光标位置
+    this.vditor?.insertValue(text);
+
+    // 触发内容变化回调
+    this.onChange?.(this.vditor?.getValue() ?? '');
   }
 
   replaceMarkdown = (text) => {
