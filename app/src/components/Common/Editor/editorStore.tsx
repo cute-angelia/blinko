@@ -114,12 +114,16 @@ export class EditorStore {
 
     // 触发内容变化回调
     this.onChange?.(this.vditor?.getValue() ?? '');
+
+    this.focus()
   }
 
   replaceMarkdown = (text) => {
     this.focus()
     this.vditor?.setValue(text)
     this.onChange?.(this.vditor?.getValue() ?? '')
+
+    this.focus()
   }
 
   getEditorRange = (vditor: IVditor) => {
