@@ -176,7 +176,7 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
         const blinkoEndpoint = getBlinkoEndpoint() ?? window.location.origin;
         this.setShareUrl(blinkoEndpoint + 'share/' + (res?.shareEncryptedUrl ?? '') + (this.isPublic ? '' : '?password=' + (this.settings.password ?? '')));
         this.setIsShare(true);
-      }   
+      }
       // Handle internal sharing
       else if (this.selectedTab === "internal") {
         await RootStore.Get(BlinkoStore).internalShareNote.call({
@@ -383,10 +383,9 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
                     <span className="text-default-700 font-medium">{t("share-link")}</span>
                   </div>
                   <div className="flex gap-2 items-center">
-                    <Input
-                      value={store.shareUrl}
-                      readOnly
-                    />
+                    <a href={store.shareUrl} target="_blank" rel="noopener noreferrer" className="text-primary">
+                      {store.shareUrl}
+                    </a>
                     <Copy content={store.shareUrl} size={24} />
                   </div>
                 </motion.div>

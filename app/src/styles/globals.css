@@ -70,7 +70,7 @@
 html,
 body {
   scroll-behavior: smooth;
-  overflow-y: hidden!important;
+  overflow-y: hidden !important;
   height: var(--doc-height);
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
@@ -335,4 +335,8 @@ body {
 
 .group[data-focus-visible="true"] .group-data-\[focus-visible\=true\]\:ring-2 {
   --tw-ring-shadow: 0 !important;
+}
+
+.my-2 {
+  margin-top: 20px;
 }

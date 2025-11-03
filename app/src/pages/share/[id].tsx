@@ -60,12 +60,12 @@ const Page: React.FC = observer(() => {
   useEffect(() => {
     if (!isPc) return
     const elements = document.querySelectorAll(".tilt-card");
-    VanillaTilt.init(elements as any, {
-      max: 2,
-      speed: 400,
-      glare: false,
-      "max-glare": 0
-    });
+    // VanillaTilt.init(elements as any, {
+    //   max: 2,
+    //   speed: 400,
+    //   glare: false,
+    //   "max-glare": 0
+    // });
   }, [store.shareNote?.value]);
 
   const handleVerify = () => {
