@@ -126,7 +126,7 @@ const Page: React.FC = observer(() => {
     <GradientBackground>
       <div className='p-4 h-[100vh] w-full flex justify-center items-center'>
         {store.shareNote?.value && (
-          <div className="tilt-card glass-effect max-h-[90vh] overflow-y-scroll w-[95%] md:min-w-[30%] md:max-w-[50%] rounded-xl shadow-[1px_0_25px_11px_rgba(98,0,114,0.17)]">
+          <div className="tilt-card glass-effect max-h-[90vh] overflow-y-scroll w-[95%] md:min-w-[30%] md:max-w-[80%] rounded-xl shadow-[1px_0_25px_11px_rgba(98,0,114,0.17)]">
             <BlinkoCard blinkoItem={store.shareNote?.value} isShareMode glassEffect />
           </div>
         )}
